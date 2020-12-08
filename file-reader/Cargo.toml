@@ -1,10 +1,9 @@
 [package]
-name = "d02"
+name = "file-reader"
 version = "0.1.0"
-authors = ["msolomon"]
+authors = ["Michael Solomon <Michael.D.Solomon1@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-file-reader = { path = "../file-reader" }

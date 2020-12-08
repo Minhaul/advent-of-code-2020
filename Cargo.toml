@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "d*",
+    "file-reader",
+]
