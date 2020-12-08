@@ -1,35 +1,9 @@
 use std::io;
 
+use d04::*;
 use file_reader;
 
 const INPUT_FILENAME: &str = "input.txt";
-
-#[derive(Debug)]
-struct PpData {
-    byr: Option<String>,
-    iyr: Option<String>,
-    eyr: Option<String>,
-    hgt: Option<String>,
-    hcl: Option<String>,
-    ecl: Option<String>,
-    pid: Option<String>,
-    cid: Option<String>,
-}
-
-impl PpData {
-    fn new() -> PpData {
-        PpData {
-            byr: None,
-            iyr: None,
-            eyr: None,
-            hgt: None,
-            hcl: None,
-            ecl: None,
-            pid: None,
-            cid: None,
-        }
-    }
-}
 
 fn main() {
     let input_str = match file_reader::file_to_vec(INPUT_FILENAME) {
