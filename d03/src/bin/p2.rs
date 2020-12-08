@@ -1,14 +1,11 @@
-use std::fs;
-use std::io;
-use std::io::BufRead;
-use std::io::BufReader;
+use file_reader;
 
 const INPUT_FILENAME: &str = "input.txt";
 
 const TREE: char = '#';
 
 fn main() {
-    let input_str = match file_to_vec(INPUT_FILENAME) {
+    let input_str = match file_reader::file_to_vec(INPUT_FILENAME) {
         Err(_) => {
             println!("Couldn't turn file into vec!");
             return;
@@ -23,13 +20,6 @@ fn main() {
                  num_trees_hit(&input_str, (1, 2));
 
     println!("{:?}", result);
-}
-
-fn file_to_vec(filename: &str) -> io::Result<Vec<String>> {
-    let file_in = fs::File::open(filename)?;
-    let file_reader = BufReader::new(file_in);
-
-    Ok(file_reader.lines().filter_map(io::Result::ok).collect())
 }
 
 fn num_trees_hit(input: &Vec<String>, slope: (usize, usize)) -> usize {

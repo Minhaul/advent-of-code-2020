@@ -1,7 +1,4 @@
-use std::fs;
-use std::io;
-use std::io::BufRead;
-use std::io::BufReader;
+use file_reader;
 
 const INPUT_FILENAME: &str = "input.txt";
 
@@ -11,23 +8,16 @@ const COL_MAX: u32 = 7;
 const NUM_ROW_CHARS: usize = 7;
 
 fn main() {
-    let input_str = match file_to_vec(INPUT_FILENAME) {
+    let input_str = match file_reader::file_to_vec(INPUT_FILENAME) {
         Err(_) => {
             println!("Couldn't turn file into vec!");
             return;
         },
         Ok(v) => v,
     };
-    let input: Vec<u32> =
+    let seat_ids: Vec<u32> =
         input_str.into_iter().map(process_input).collect();
-
-    let mut missing: Vec<u32> = Vec::new();
-    for x in 0..((ROW_MAX << 3) + COL_MAX) {
-        if input.iter().find(|&&y| y == x) == None {
-            missing.push(x);
-        }
-    }
-    missing.sort();
+    let missing: Vec<u32> = find_missing_ids(&seat_ids, ROW_MAX, COL_MAX);
 
     let mut result = 0;
     for (i, x) in missing.iter().enumerate().skip(1) {
@@ -47,13 +37,6 @@ fn main() {
     }
 
     println!("{:?}", result);
-}
-
-fn file_to_vec(filename: &str) -> io::Result<Vec<String>> {
-    let file_in = fs::File::open(filename)?;
-    let file_reader = BufReader::new(file_in);
-
-    Ok(file_reader.lines().filter_map(io::Result::ok).collect())
 }
 
 fn process_input(input: String) -> u32 {
@@ -84,4 +67,16 @@ fn process_input(input: String) -> u32 {
     let col = col_max;
 
     (row << 3) + col
+}
+
+fn find_missing_ids(seat_ids: &Vec<u32>, max_row: u32, max_col: u32) -> Vec<u32> {
+    let mut missing: Vec<u32> = Vec::new();
+    for x in 0..((max_row << 3) + max_col) {
+        if seat_ids.iter().find(|&&y| y == x) == None {
+            missing.push(x);
+        }
+    }
+    missing.sort();
+
+    missing
 }
