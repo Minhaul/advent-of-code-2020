@@ -57,5 +57,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "d09"
+version = "0.1.0"
+dependencies = [
+ "file-reader",
+]
+
+[[package]]
+name = "d10"
+version = "0.1.0"
+dependencies = [
+ "file-reader",
+]
+
+[[package]]
 name = "file-reader"
 version = "0.1.0"
