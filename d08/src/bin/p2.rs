@@ -31,7 +31,7 @@ fn main() {
             None => panic!("Out of bounds!"),
         };
 
-        instructions.iter_mut().nth(i).unwrap().op = new_op;
+        instructions.get_mut(i).unwrap().op = new_op;
 
         if let Some(acc) = does_terminate(&instructions) {
             result = acc;
@@ -44,7 +44,7 @@ fn main() {
             new_op = Operation::Jmp;
         }
 
-        instructions.iter_mut().nth(i).unwrap().op = new_op;
+        instructions.get_mut(i).unwrap().op = new_op;
     }
 
     println!("{:?}", result);
@@ -63,7 +63,7 @@ fn does_terminate(instructions: &Vec<Instruction>) -> Option<i32> {
         match used_instructions.get(pc) {
             Some(uinst) => match uinst {
                 Some(_) => break None,
-                None => *used_instructions.iter_mut().nth(pc).unwrap() = Some(()),
+                None => *used_instructions.get_mut(pc).unwrap() = Some(()),
             },
             None => break Some(acc),
         }
