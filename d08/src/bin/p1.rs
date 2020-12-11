@@ -26,7 +26,7 @@ fn main() {
         match used_instructions.get(pc) {
             Some(uinst) => match uinst {
                 Some(_) => break acc,
-                None => *used_instructions.iter_mut().nth(pc).unwrap() = Some(()),
+                None => *used_instructions.get_mut(pc).unwrap() = Some(()),
             },
             None => panic!("Instruction out of bounds!"),
         }
